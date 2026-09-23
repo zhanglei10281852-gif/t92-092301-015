@@ -1,0 +1,17 @@
+services:
+  api:
+    build:
+      context: ./backend
+    ports:
+      - "6847:6847"
+    environment:
+      PORT: 6847
+      DB_PATH: /app/data/elderly-meal.sqlite3
+      JWT_SECRET: change-this-secret-in-production
+      MONTHLY_SUBSIDY_QUOTA: 100000
+    volumes:
+      - elderly-meal-data:/app/data
+    command: sh -c "node src/init.js && node src/server.js"
+
+volumes:
+  elderly-meal-data:
